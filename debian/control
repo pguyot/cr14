@@ -1,0 +1,13 @@
+Source: cr14
+Section: unknown
+Priority: optional
+Maintainer: Guilhem Lettron <guilhem@barpilot.io>
+Build-Depends: debhelper-compat (= 13), dkms
+Standards-Version: 4.5.0
+Homepage: https://github.com/pguyot/cr14
+Rules-Requires-Root: no
+
+Package: cr14-dkms
+Architecture: all
+Depends: ${misc:Depends}
+Description: CR14 RFID reader driver

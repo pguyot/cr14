@@ -223,7 +223,8 @@ static void restart_polling_timer(struct cr14_i2c_data *priv);
 
 static int cr14_open(struct inode *inode, struct file *file);
 static int cr14_release(struct inode *inode, struct file *file);
-static int cr14_read(struct file *file, char __user *buffer, size_t len, loff_t *offset);
+static ssize_t cr14_read(struct file *file, char __user *buffer, size_t len, loff_t *offset);
+static ssize_t cr14_write(struct file *file, const char __user *buffer, size_t len, loff_t *ppos);
 static unsigned int cr14_poll(struct file *file, poll_table *wait);
 
 static int cr14_i2c_probe(struct i2c_client *i2c, const struct i2c_device_id *id);
@@ -765,7 +766,7 @@ static int cr14_release(struct inode *inode, struct file *file) {
     return 0;
 }
 
-static int cr14_read(struct file *file, char __user *buffer, size_t len, loff_t *ppos) {
+static ssize_t cr14_read(struct file *file, char __user *buffer, size_t len, loff_t *ppos) {
     struct cr14_i2c_data *priv = (struct cr14_i2c_data *) file->private_data;
     int read_count = 0;
     spin_lock(&priv->consumer_lock);
@@ -799,7 +800,7 @@ static int cr14_read(struct file *file, char __user *buffer, size_t len, loff_t 
     return read_count;
 }
 
-static int cr14_write(struct file *file, const char __user *buffer, size_t len, loff_t *ppos) {
+static ssize_t cr14_write(struct file *file, const char __user *buffer, size_t len, loff_t *ppos) {
     struct cr14_i2c_data *priv = (struct cr14_i2c_data *) file->private_data;
     int written_count = 0;
     if (len <= 0) {

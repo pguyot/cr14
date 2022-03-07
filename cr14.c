@@ -209,7 +209,7 @@ struct cr14_i2c_data {
 	char read_buffer[CIRCULAR_BUFFER_SIZE];
 	int write_offset;   // current offset in write buffer
 	char write_buffer[MAX_PACKET_SIZE];
-	spinlock_t command_lock;    // locks mode and params
+	struct mutex command_lock; // locks mode and params
     unsigned opened:1;          // whether the device is opened
 	unsigned running_command:1; // whether we're currently running a command
 	enum cr14_mode mode;
@@ -595,9 +595,9 @@ static void cr14_do_poll(struct work_struct *work) {
     u8 value;
     int collision;
 
-    spin_lock(&priv->command_lock);
+    mutex_lock(&priv->command_lock);
     if (priv->mode == mode_idle) {
-        spin_unlock(&priv->command_lock);
+        mutex_unlock(&priv->command_lock);
         return;
     }
 
@@ -692,7 +692,7 @@ static void cr14_do_poll(struct work_struct *work) {
 
     priv->running_command = 0;  // unlock mode & params
     wake_up_interruptible(&priv->write_wq);
-    spin_unlock(&priv->command_lock);
+    mutex_unlock(&priv->command_lock);
 
     value = CARRIER_FREQ_RF_OUT_OFF | WATCHDOG_TIMEOUT_5US;
     result = i2c_smbus_write_byte_data(priv->i2c, CRX14_PARAMETER_REGISTER, value);
@@ -806,9 +806,9 @@ static ssize_t cr14_write(struct file *file, const char __user *buffer, size_t l
     if (len <= 0) {
         return 0;
     }
-    spin_lock(&priv->command_lock);
+    mutex_lock(&priv->command_lock);
     if (wait_event_interruptible(priv->write_wq, priv->running_command == 0)) {
-        spin_unlock(&priv->command_lock);
+        mutex_unlock(&priv->command_lock);
         return -ERESTARTSYS;
     }
     do {
@@ -924,7 +924,7 @@ static ssize_t cr14_write(struct file *file, const char __user *buffer, size_t l
             trigger_polling_work(priv);
         }
     } while (0);
-    spin_unlock(&priv->command_lock);
+    mutex_unlock(&priv->command_lock);
     if (written_count > 0) {
         *ppos += written_count;
     }
@@ -1021,7 +1021,7 @@ static int cr14_i2c_probe(struct i2c_client *i2c, const struct i2c_device_id *id
 
     spin_lock_init(&priv->producer_lock);
     spin_lock_init(&priv->consumer_lock);
-    spin_lock_init(&priv->command_lock);
+    mutex_init(&priv->command_lock);
     init_waitqueue_head(&priv->read_wq);
     init_waitqueue_head(&priv->write_wq);
 	INIT_WORK(&priv->polling_work, cr14_do_poll);

@@ -5,7 +5,13 @@ obj-m += cr14.o
 dtbo-y += cr14.dtbo
 
 targets += $(dtbo-y)
-always-y := $(dtbo-y)
+
+# Gracefully supporting the new always-y without cutting off older target with kernel 4.x
+ifeq ($(firstword $(subst ., ,$(KERNELRELEASE))),4)
+	always := $(dtbo-y)
+else
+	always-y := $(dtbo-y)
+endif
 
 all:
 	make -C /lib/modules/$(KERNELRELEASE)/build M=$(PWD) modules

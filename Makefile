@@ -5,7 +5,7 @@ obj-m += cr14.o
 dtbo-y += cr14.dtbo
 
 targets += $(dtbo-y)
-always  := $(dtbo-y)
+always-y := $(dtbo-y)
 
 all:
 	make -C /lib/modules/$(KERNELRELEASE)/build M=$(PWD) modules

@@ -6,7 +6,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [zero_raspbian, zero_raspios, zero_dietpi, zero2_raspios, zero2_dietpi, zero2_64_raspios, zero2_64_dietpi]
+        target: [zero_raspbian, zero_raspios, zero_dietpi, zero2_raspios, zero2_dietpi, zero2_64_raspios, zero2_64_dietpi, pynab_latest]
         include:
         - target: zero_raspbian
           cpu: arm1176
@@ -36,6 +36,10 @@ jobs:
           cpu: cortex-a53
           cpu_info: cpuinfo/raspberrypi_zero2_w_arm64
           base_image: dietpi:rpi_armv8_bullseye
+        - target: pynab_latest
+          cpu: arm1176
+          cpu_info: cpuinfo/raspberrypi_zero_w
+          base_image: https://github.com/nabaztag2018/pynab/releases/download/v0.9.1/pynab-v0.9.1.img.xz
     steps:
     - uses: actions/checkout@v2
     - uses: pguyot/arm-runner-action@v2

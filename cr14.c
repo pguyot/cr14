@@ -124,6 +124,8 @@
 #define CRX14_IO_FRAME_REGISTER 0x01
 #define CRX14_SLOT_MARKER_REGISTER 0x03
 
+#define ST25R_IDENTIFICATION_REGISTER 0x7f
+
 #define CARRIER_FREQ_RF_OUT_OFF 0x00
 #define CARRIER_FREQ_RF_OUT_ON 0x10
 #define WATCHDOG_TIMEOUT_5US 0x00
@@ -978,6 +980,17 @@ static int cr14_i2c_probe(struct i2c_client *i2c, const struct i2c_device_id *id
     if (result < 0) {
         dev_err(dev, "Could not read parameter register %d", result);
         return result;
+    }
+
+    // Read ST25R identification register to make sure this isn't a ST25R
+    result = i2c_smbus_read_byte_data(i2c, ST25R_IDENTIFICATION_REGISTER);
+    if (result == 0b00101010) {
+        dev_err(dev, "This is a ST25R and not a CR14");
+        return -1;
+    }
+    if (result >= 0) {
+        dev_err(dev, "This probably is not a CR14");
+        return -1;
     }
     
     i2c_set_clientdata(i2c, priv);

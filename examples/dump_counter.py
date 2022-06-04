@@ -32,7 +32,7 @@ try:
             for x in range(5, 7):
                 data = os.read(rfid, 4)
                 counter_value = int.from_bytes(data, byteorder="little")
-                print(f"{x} counter={counter_value} ({data})")
+                print(f"{x} counter={counter_value} ({data.hex()})")
         else:
             print(f"Unexpected packet header {packet[0]}")
 except KeyboardInterrupt:

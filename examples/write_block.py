@@ -38,10 +38,11 @@ try:
                 written_data = os.read(rfid, 4)
                 if written_data != data:
                     print(
-                        f"Data mismatch, got {written_data} but wrote {data}"
+                        f"Data mismatch, got {written_data.hex()}"
+                        f" but wrote {data.hex()}"
                     )
             else:
-                print(f"Unexpected packet, got {packet}, expected w")
+                print(f"Unexpected packet, got {packet.hex()}, expected w")
         else:
             print(f"Unexpected packet header {packet[0]}")
 except KeyboardInterrupt:

@@ -34,9 +34,11 @@ try:
             else:
                 data = os.read(rfid, 12)
                 if data != erased_data:
-                    print(f"Data mismatch, got {data} but wrote {erased_data}")
+                    print(
+                        f"Data mismatch, got {data.hex()} but wrote {erased_data.hex()}"
+                    )
                 else:
-                    print(f"Erased blocks 7 to 9 (wrote FFFFFFFF)")
+                    print("Erased blocks 7 to 9 (wrote FFFFFFFF)")
         else:
             print(f"Unexpected packet header {packet[0]}")
 except KeyboardInterrupt:

@@ -54,21 +54,24 @@ try:
                         written9 = os.read(rfid, 4)
                         if written7 != block8:
                             print(
-                                f"Data mismatch, got {written7} but wrote {block8}"
+                                f"Data mismatch, got {written7.hex()}"
+                                f" but wrote {block8.hex()}"
                             )
                         if written8 != block9:
                             print(
-                                f"Data mismatch, got {written7} but wrote {block8}"
+                                f"Data mismatch, got {written7.hex()}"
+                                f" but wrote {block8.hex()}"
                             )
                         if written9 != block7:
                             print(
-                                f"Data mismatch, got {written7} but wrote {block8}"
+                                f"Data mismatch, got {written7.hex()}"
+                                f" but wrote {block8.hex()}"
                             )
-                        print(f"New 7: {written7}")
-                        print(f"New 8: {written8}")
-                        print(f"New 9: {written9}")
+                        print(f"New 7: {written7.hex()}")
+                        print(f"New 8: {written8.hex()}")
+                        print(f"New 9: {written9.hex()}")
                 else:
-                    print(f"Unexpected packet, got {packet}, expected w")
+                    print(f"Unexpected packet, got {packet.hex()}, expected w")
         else:
             print(f"Unexpected packet header {packet[0]}")
 except KeyboardInterrupt:

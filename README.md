@@ -7,9 +7,11 @@
 ## Datasheet and technical documents
 
 Chipset:
+
 - [CR14](https://datasheet.octopart.com/CR14-MQP/1GE-STMicroelectronics-datasheet-10836722.pdf)
 
 PICC:
+
 - [SRIX4K](http://www.orangetags.com/wp-content/downloads/datasheet/STM/srix4k.pdf)
 - [SRI512](https://www.advanide.de/wp-content/uploads/products/rfid/SRI512.pdf)
 - [SRT512](https://www.advanide.de/wp-content/uploads/products/rfid/SRT512.pdf)
@@ -39,7 +41,8 @@ Compile and install with
     make
     sudo make install
 
-Makefile will automatically edit /boot/config.txt and add/enable if required the following params and overlays:
+Makefile will automatically edit /boot/config.txt and add/enable if required
+the following params and overlays:
 
     dtparam=i2c_arm=on
     dtoverlay=cr14
@@ -54,6 +57,9 @@ Driver creates device /dev/rfid0
 
 Several modes are available, see the sample Python scripts in examples.
 
-Simplest mode consists in opening device read-only. The CR14 will be polled every 0.5 second, printing detected tag UIDs preceeded by 'u' (UIDs are printed in little endian, LSB first).
+Simplest mode consists in opening device read-only. The CR14 will be polled
+every 0.5 second, printing detected tag UIDs preceeded by 'u' (UIDs are printed
+in little endian, LSB first).
 
-More complex interactions are possible by opening device r/w and sending commands, for example to read or write EEPROM.
+More complex interactions are possible by opening device r/w and sending
+commands, for example to read or write EEPROM.

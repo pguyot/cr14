@@ -385,11 +385,9 @@ static int cr14_read_block(struct i2c_client *i2c, u8 addr, u8 *data)
 			result = 2;
 		} else if (buffer[0] != 4) {
 			// Incoherent number of bytes
-			if (result < 0) {
-				dev_err(&i2c->dev,
-					"Expected 4 bytes for read_block, got %d instead",
-					buffer[0]);
-			}
+			dev_err(&i2c->dev,
+				"Expected 4 bytes for read_block, got %d instead",
+				buffer[0]);
 		} else {
 			data[0] = buffer[1];
 			data[1] = buffer[2];
@@ -652,7 +650,8 @@ static int cr14_get_uid_and_process_mode(struct cr14_i2c_data *priv, u8 chip_id)
 				default:
 					chip_uid = NULL;
 				}
-				if (memcmp(chip_uid, buffer + 1, 8) == 0) {
+				if (chip_uid != NULL &&
+				    memcmp(chip_uid, buffer + 1, 8) == 0) {
 					if (cr14_process_command(priv)) {
 						collision = 1;
 					}
@@ -929,7 +928,7 @@ static ssize_t cr14_write(struct file *file, const char __user *buffer,
 {
 	struct cr14_i2c_data *priv = (struct cr14_i2c_data *)file->private_data;
 	int written_count = 0;
-	if (len <= 0) {
+	if (len == 0) {
 		return 0;
 	}
 	mutex_lock(&priv->command_lock);

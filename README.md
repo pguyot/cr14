@@ -1,14 +1,13 @@
 # CR14 RFID reader driver for Linux (Raspbian)
 
 [![GitHub Super-Linter](https://github.com/pguyot/cr14/actions/workflows/super-linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
-
 [![ARM Runner](https://github.com/pguyot/cr14/actions/workflows/arm-runner.yml/badge.svg)](https://github.com/marketplace/actions/arm-runner)
+[![Codacy](https://app.codacy.com/project/badge/Grade/dcee41ebf0a9416182d54051edfe8b5f)](https://www.codacy.com/gh/pguyot/cr14/dashboard)
 
 ## Datasheet and technical documents
 
 Chipset:
 - [CR14](https://datasheet.octopart.com/CR14-MQP/1GE-STMicroelectronics-datasheet-10836722.pdf)
-
 
 PICC:
 - [SRIX4K](http://www.orangetags.com/wp-content/downloads/datasheet/STM/srix4k.pdf)

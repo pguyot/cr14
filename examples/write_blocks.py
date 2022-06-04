@@ -34,14 +34,10 @@ try:
                 block7 = os.read(rfid, 4)
                 block8 = os.read(rfid, 4)
                 block9 = os.read(rfid, 4)
+                data = block7 + block8 + block9
                 os.write(
                     rfid,
-                    b"W"
-                    + uid_le
-                    + b"\x03\x07\x08\x09"
-                    + block8
-                    + block9
-                    + block7,
+                    b"W" + uid_le + b"\x03\x07\x08\x09" + data,
                 )
                 packet = os.read(rfid, 1)
                 if packet == b"W":

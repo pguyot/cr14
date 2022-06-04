@@ -1,5 +1,8 @@
 name: Checking driver compiles on various versions of raspbian/raspios
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches: [master]
+  pull_request:
 jobs:
   build:
     runs-on: ubuntu-latest

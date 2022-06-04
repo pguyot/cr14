@@ -58,3 +58,12 @@ dkms.conf
 
 # Kernel Module compile tmp files
 *.tmp
+
+# Linux headers
+usr
+
+# macOS files
+.DS_Store
+
+# Python venv
+venv

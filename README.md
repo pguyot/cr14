@@ -1,5 +1,9 @@
 # CR14 RFID reader driver for Linux (Raspbian)
 
+[![GitHub Super-Linter](https://github.com/pguyot/cr14/actions/workflows/super-linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
+
+[![ARM Runner](https://github.com/pguyot/cr14/actions/workflows/arm-runner.yml/badge.svg)](https://github.com/marketplace/actions/arm-runner)
+
 ## Datasheet and technical documents
 
 Chipset:

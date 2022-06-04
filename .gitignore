@@ -64,3 +64,6 @@ usr
 
 # macOS files
 .DS_Store
+
+# Python venv
+venv

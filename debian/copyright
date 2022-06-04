@@ -1,11 +1,10 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: cr14
 Upstream-Contact: <preferred name and address to reach the upstream project>
-Source: <url://example.com>
+Source: <https://github.com/pguyot/cr14>
 
 Files: *
-Copyright: <years> <put author's name and email here>
-           <years> <likewise for another author>
+Copyright: 2020-2022 Paul Guyot <pguyot@kallisys.net>
 License: GPL-2.0+
 
 Files: debian/*

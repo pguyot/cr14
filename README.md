@@ -3,19 +3,19 @@
 ## Datasheet and technical documents
 
 Chipset:
-- (CR14)[https://datasheet.octopart.com/CR14-MQP/1GE-STMicroelectronics-datasheet-10836722.pdf]
+- [CR14](https://datasheet.octopart.com/CR14-MQP/1GE-STMicroelectronics-datasheet-10836722.pdf)
 
 
 PICC:
-- (SRIX4K)[http://www.orangetags.com/wp-content/downloads/datasheet/STM/srix4k.pdf]
-- (SRI512)[https://www.advanide.de/wp-content/uploads/products/rfid/SRI512.pdf]
-- (SRT512)[https://www.advanide.de/wp-content/uploads/products/rfid/SRT512.pdf]
-- (SRI4K)[https://www.advanide.de/wp-content/uploads/products/rfid/SRI4K.pdf]
-- (SRI2K)[https://www.advanide.de/wp-content/uploads/products/rfid/SRI2K.pdf]
-- (ST25TB512-AC)[https://www.st.com/resource/en/datasheet/st25tb512-ac.pdf]
-- (ST25TB04K)[https://www.st.com/resource/en/datasheet/st25tb04k.pdf]
-- (ST25TB512-AT)[https://www.st.com/resource/en/datasheet/st25tb512-at.pdf]
-- (ST25TB02K)[https://www.st.com/resource/en/datasheet/st25tb02k.pdf]
+- [SRIX4K](http://www.orangetags.com/wp-content/downloads/datasheet/STM/srix4k.pdf)
+- [SRI512](https://www.advanide.de/wp-content/uploads/products/rfid/SRI512.pdf)
+- [SRT512](https://www.advanide.de/wp-content/uploads/products/rfid/SRT512.pdf)
+- [SRI4K](https://www.advanide.de/wp-content/uploads/products/rfid/SRI4K.pdf)
+- [SRI2K](https://www.advanide.de/wp-content/uploads/products/rfid/SRI2K.pdf)
+- [ST25TB512-AC](https://www.st.com/resource/en/datasheet/st25tb512-ac.pdf)
+- [ST25TB04K](https://www.st.com/resource/en/datasheet/st25tb04k.pdf)
+- [ST25TB512-AT](https://www.st.com/resource/en/datasheet/st25tb512-at.pdf)
+- [ST25TB02K](https://www.st.com/resource/en/datasheet/st25tb02k.pdf)
 
 This driver may be compatible with CRX14 as well.
 Tested with CR14 and SRI512/SRT512 PICCs.

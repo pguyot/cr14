@@ -1,3 +1,8 @@
+cr14 (1.1) unstable; urgency=medium
+
+  * Fixed some minor errors revealed by linters.
+  * Driver now detects ST25R
+
 cr14 (1.0) unstable; urgency=medium
 
   * Initial Release.

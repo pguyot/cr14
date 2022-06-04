@@ -18,6 +18,7 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_CPP: false
-          PYTHON_BLACK_CONFIG_FILE: examples/pyproject.toml
+          PYTHON_BLACK_CONFIG_FILE: pyproject.toml
+          PYTHON_ISORT_CONFIG_FILE: pyproject.toml
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

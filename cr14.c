@@ -21,6 +21,8 @@
 #include <linux/i2c.h>
 #include <linux/circ_buf.h>
 
+#include <linux/version.h>
+
 // ========================================================================== //
 // PROTOCOL
 // ========================================================================== //
@@ -232,7 +234,11 @@ static unsigned int cr14_poll(struct file *file, poll_table *wait);
 
 static int cr14_i2c_probe(struct i2c_client *i2c,
 			  const struct i2c_device_id *id);
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6,0,0)
 static int cr14_i2c_remove(struct i2c_client *client);
+#else
+static void cr14_i2c_remove(struct i2c_client *client);
+#endif
 
 // ========================================================================== //
 // Polling code
@@ -1199,7 +1205,11 @@ static int cr14_i2c_probe(struct i2c_client *i2c,
 	return 0;
 }
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6,0,0)
 static int cr14_i2c_remove(struct i2c_client *client)
+#else
+static void cr14_i2c_remove(struct i2c_client *client)
+#endif
 {
 	struct cr14_i2c_data *priv;
 	priv = i2c_get_clientdata(client);
@@ -1220,7 +1230,9 @@ static int cr14_i2c_remove(struct i2c_client *client)
 	del_timer_sync(&priv->polling_timer);
 	cancel_work_sync(&priv->polling_work);
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6,0,0)
 	return 0;
+#endif
 }
 
 #ifdef CONFIG_OF

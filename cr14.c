@@ -232,8 +232,12 @@ static ssize_t cr14_write(struct file *file, const char __user *buffer,
 			  size_t len, loff_t *ppos);
 static unsigned int cr14_poll(struct file *file, poll_table *wait);
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 2, 0)
 static int cr14_i2c_probe(struct i2c_client *i2c,
 			  const struct i2c_device_id *id);
+#else
+static int cr14_i2c_probe(struct i2c_client *i2c);
+#endif
 #if LINUX_VERSION_CODE < KERNEL_VERSION(6, 0, 0)
 static int cr14_i2c_remove(struct i2c_client *client);
 #else
@@ -1124,8 +1128,12 @@ static struct file_operations cr14_fops = {
 // Probing, initialization and cleanup
 // ========================================================================== //
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 2, 0)
 static int cr14_i2c_probe(struct i2c_client *i2c,
 			  const struct i2c_device_id *id)
+#else
+static int cr14_i2c_probe(struct i2c_client *i2c)
+#endif
 {
 	struct cr14_i2c_data *priv;
 	struct device *dev = &i2c->dev;
@@ -1168,7 +1176,11 @@ static int cr14_i2c_probe(struct i2c_client *i2c,
 	}
 
 	// Create device class
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 4, 0)
 	priv->cr14_class = class_create(THIS_MODULE, DEVICE_NAME);
+#else
+	priv->cr14_class = class_create(DEVICE_NAME);
+#endif
 	if (IS_ERR(priv->cr14_class)) {
 		err = PTR_ERR(priv->cr14_class);
 		dev_err(dev, "class_create failed: %d", err);

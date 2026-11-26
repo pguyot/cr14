@@ -272,6 +272,15 @@ static s32 cr14_write_register_byte_check(struct i2c_client *i2c, u8 reg,
 	return result;
 }
 
+// The CRX14 does not acknowledge its address while it is busy with an RF
+// exchange: reads are retried until it answers (ACK polling).
+// Kernel 6.x i2c-bcm2835 reports this NACK on a read as -EIO instead of
+// -EREMOTEIO, so -EIO is retried too.
+static bool cr14_frame_register_busy(s32 result)
+{
+	return result == -EREMOTEIO || result == -ETIMEDOUT || result == -EIO;
+}
+
 static int cr14_read_io_frame_register(struct i2c_client *i2c, int len,
 				       u8 *buffer)
 {
@@ -280,7 +289,7 @@ static int cr14_read_io_frame_register(struct i2c_client *i2c, int len,
 	do {
 		result = i2c_smbus_read_i2c_block_data(
 			i2c, CRX14_IO_FRAME_REGISTER, len, buffer);
-		if (result == -EREMOTEIO || result == -ETIMEDOUT) {
+		if (cr14_frame_register_busy(result)) {
 			retries++;
 		} else if (result != len) {
 			dev_err(&i2c->dev,
@@ -288,7 +297,7 @@ static int cr14_read_io_frame_register(struct i2c_client *i2c, int len,
 				len, result);
 			result = -1;
 		}
-	} while ((result == -EREMOTEIO || result == -ETIMEDOUT) &&
+	} while (cr14_frame_register_busy(result) &&
 		 retries < IO_FRAME_REGISTER_MAX_RETRIES);
 	return result;
 }
